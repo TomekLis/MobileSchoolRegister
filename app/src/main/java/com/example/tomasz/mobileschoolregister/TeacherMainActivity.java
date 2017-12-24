@@ -13,8 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity
+import com.example.tomasz.mobileschoolregister.helper.Token;
+
+public class TeacherMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Token securityToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        PrepareTeacherData();
+    }
+
+    private void PrepareTeacherData() {
+
     }
 
     @Override

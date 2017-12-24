@@ -29,11 +29,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.tomasz.mobileschoolregister.api.IAthenticationClient;
+import com.example.tomasz.mobileschoolregister.api.IAuthenticationClient;
 import com.example.tomasz.mobileschoolregister.service.UserClient;
-import com.example.tomasz.mobileschoolregister.utils.Token;
+import com.example.tomasz.mobileschoolregister.helper.Token;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -333,9 +332,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             //get client
             UserClient userClient = new UserClient(mUserName, mPassword);
-            IAthenticationClient athenticationClient = retrofit.create(IAthenticationClient.class);
+            IAuthenticationClient authenticationClient = retrofit.create(IAuthenticationClient.class);
 
-            Call<Token> call = athenticationClient.getToken(userClient.getGrantType(), userClient.getUserName(), userClient.getPassword());
+            Call<Token> call = authenticationClient.getToken(userClient.getGrantType(), userClient.getUserName(), userClient.getPassword());
 
             try {
                 responseToken = call.execute();
@@ -365,8 +364,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                Toast.makeText(LoginActivity.this, "good the token is :" + responseToken.body().getAccessToken(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, TeacherMainActivity.class);
+                intent.putExtra("token", responseToken.body());
                 startActivity(intent);
                 finish();
             } else {

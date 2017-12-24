@@ -1,18 +1,20 @@
-package com.example.tomasz.mobileschoolregister.utils;
+package com.example.tomasz.mobileschoolregister.helper;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 /**
  * Created by Tomasz on 22-Dec-17.
  */
 
-public class Token {
-    public Token(String accessToken, String tokenType, int expiresIn, String userName, String issued, String expires) {
+public class Token implements Serializable {
+    public Token(String accessToken, String tokenType, int expiresIn, String userId, String issued, String expires) {
         this.accessToken = accessToken;
         this.tokenType = tokenType;
         this.expiresIn = expiresIn;
-        this.userName = userName;
+        this.userId = userId;
         this.issued = issued;
         this.expires = expires;
     }
@@ -41,12 +43,12 @@ public class Token {
         this.expiresIn = expiresIn;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getIssued() {
@@ -77,9 +79,9 @@ public class Token {
     @Expose()
     private int expiresIn;
 
-    @SerializedName("userName")
+    @SerializedName("userId")
     @Expose()
-    private String userName;
+    private String userId;
 
     @SerializedName(".issued")
     @Expose()

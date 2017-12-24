@@ -1,6 +1,6 @@
 package com.example.tomasz.mobileschoolregister.api;
 
-import com.example.tomasz.mobileschoolregister.utils.Token;
+import com.example.tomasz.mobileschoolregister.helper.Token;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -11,7 +11,7 @@ import retrofit2.http.POST;
  * Created by Tomasz on 22-Dec-17.
  */
 
-public interface IAthenticationClient {
+public interface IAuthenticationClient {
 
     @FormUrlEncoded
     @POST("/MobileSchoolRegisterAppApi/token")
