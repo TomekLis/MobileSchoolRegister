@@ -1,5 +1,8 @@
 package com.example.tomasz.mobileschoolregister.service;
 
+import android.os.AsyncTask;
+
+import com.example.tomasz.mobileschoolregister.api.ApiConnector;
 import com.example.tomasz.mobileschoolregister.api.IAuthenticationClient;
 import com.example.tomasz.mobileschoolregister.api.ITeacherClient;
 import com.example.tomasz.mobileschoolregister.helper.Token;
@@ -17,28 +20,31 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Tomasz on 24-Dec-17.
  */
 
-public class TeacherService {
+public class TeacherService extends AsyncTask<String, Void, Teacher> {
 
-    Retrofit.Builder builder = new Retrofit.Builder()
-            .baseUrl("http://192.168.55.108/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
-    Retrofit retrofit = builder.build();
+    private Token token;
+    public TeacherService(Token token){
+        this.token = token;
+    }
 
-    private ITeacherClient teacherClient = retrofit.create(ITeacherClient.class);
-
-    public Teacher retreiveTeacherBasicData(Token token) throws Exception{
-        Call<Teacher> call = teacherClient.getTeacherBasicData(token.getAccessToken(),token.getUserId());
+    private Teacher retrieveTeacherBasicData() {
+        ITeacherClient teacherClient = ApiConnector.createAuthrizedClient(ITeacherClient.class, token);
+        Call<Teacher> call = teacherClient.getTeacherBasicData();
 
         try {
             Response<Teacher> responseTeacher = call.execute();
 
             if (responseTeacher.isSuccessful()){
-                return  responseTeacher.body();
+                return  null;
             }
         } catch (Exception e){
             return  null;
         }
         return null;
+    }
+
+    @Override
+    protected Teacher doInBackground(String... strings) {
+        return retrieveTeacherBasicData();
     }
 }

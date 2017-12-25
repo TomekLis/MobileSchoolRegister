@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.tomasz.mobileschoolregister.api.ApiConnector;
 import com.example.tomasz.mobileschoolregister.api.IAuthenticationClient;
 import com.example.tomasz.mobileschoolregister.service.UserClient;
 import com.example.tomasz.mobileschoolregister.helper.Token;
@@ -328,11 +329,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
 
             //get client
-            UserClient userClient = new UserClient(mUserName, mPassword);
-            IAuthenticationClient authenticationClient = retrofit.create(IAuthenticationClient.class);
+            UserClient userClient = new UserClient("FirstTeacher", "1234Abc");
+
+            IAuthenticationClient authenticationClient = ApiConnector.createClient(IAuthenticationClient.class);
 
             Call<Token> call = authenticationClient.getToken(userClient.getGrantType(), userClient.getUserName(), userClient.getPassword());
 

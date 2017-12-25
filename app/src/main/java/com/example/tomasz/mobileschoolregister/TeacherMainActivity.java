@@ -1,5 +1,6 @@
 package com.example.tomasz.mobileschoolregister;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,13 +13,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.tomasz.mobileschoolregister.helper.Token;
+import com.example.tomasz.mobileschoolregister.model.Teacher;
+import com.example.tomasz.mobileschoolregister.service.TeacherService;
+
+import java.util.concurrent.ExecutionException;
 
 public class TeacherMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Token securityToken;
+    private TeacherService teacherService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,20 @@ public class TeacherMainActivity extends AppCompatActivity
     }
 
     private void PrepareTeacherData() {
+        Intent sourceIntent = getIntent();
+        securityToken = (Token)sourceIntent.getSerializableExtra("token");
+        teacherService = new TeacherService(securityToken);
+
+        Teacher teacher = null;
+        try {
+            teacher = teacherService.execute("").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        TextView teacherFullNameTextView = (TextView) findViewById(R.id.teacher_nav_header_name);
+        teacherFullNameTextView.setText(teacher.getFullName());
 
     }
 

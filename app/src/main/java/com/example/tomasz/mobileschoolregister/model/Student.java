@@ -10,9 +10,10 @@ class Student extends User{
     private int studentsGroupId;
     private StudentGroup studentGroup;
 
-    public Student(String id, String userName, String firstName, String lastName) {
-        super(id, userName, firstName, lastName);
+    public Student(String id, String userName, String fullName, String firstName, String lastName, String email, String phoneNumber) {
+        super(id, userName, fullName, firstName, lastName, email, phoneNumber);
     }
+
 
     public int getAge() {
         return age;

@@ -10,6 +10,31 @@ import java.io.Serializable;
  */
 
 public class Token implements Serializable {
+
+    @SerializedName("access_token")
+    @Expose()
+    private String accessToken;
+
+    @SerializedName("token_type")
+    @Expose()
+    private String tokenType;
+
+    @SerializedName("expires_in")
+    @Expose()
+    private int expiresIn;
+
+    @SerializedName("userId")
+    @Expose()
+    private String userId;
+
+    @SerializedName(".issued")
+    @Expose()
+    private String issued;
+
+    @SerializedName(".expires")
+    @Expose()
+    private String expires;
+
     public Token(String accessToken, String tokenType, int expiresIn, String userId, String issued, String expires) {
         this.accessToken = accessToken;
         this.tokenType = tokenType;
@@ -67,28 +92,5 @@ public class Token implements Serializable {
         this.expires = expires;
     }
 
-    @SerializedName("access_token")
-    @Expose()
-    private String accessToken;
-
-    @SerializedName("token_type")
-    @Expose()
-    private String tokenType;
-
-    @SerializedName("expires_in")
-    @Expose()
-    private int expiresIn;
-
-    @SerializedName("userId")
-    @Expose()
-    private String userId;
-
-    @SerializedName(".issued")
-    @Expose()
-    private String issued;
-
-    @SerializedName(".expires")
-    @Expose()
-    private String expires;
 
 }
