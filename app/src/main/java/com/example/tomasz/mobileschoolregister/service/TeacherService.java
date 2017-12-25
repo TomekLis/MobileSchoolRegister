@@ -3,18 +3,13 @@ package com.example.tomasz.mobileschoolregister.service;
 import android.os.AsyncTask;
 
 import com.example.tomasz.mobileschoolregister.api.ApiConnector;
-import com.example.tomasz.mobileschoolregister.api.IAuthenticationClient;
 import com.example.tomasz.mobileschoolregister.api.ITeacherClient;
 import com.example.tomasz.mobileschoolregister.helper.Token;
+import com.example.tomasz.mobileschoolregister.interfaces.IFetchDataCallback;
 import com.example.tomasz.mobileschoolregister.model.Teacher;
-
-import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Tomasz on 24-Dec-17.
@@ -23,19 +18,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TeacherService extends AsyncTask<String, Void, Teacher> {
 
     private Token token;
-    public TeacherService(Token token){
+    IFetchDataCallback fetchDataCallback;
+
+    public TeacherService(Token token, IFetchDataCallback fetchDataCallback){
         this.token = token;
+        this.fetchDataCallback = fetchDataCallback;
     }
 
     private Teacher retrieveTeacherBasicData() {
-        ITeacherClient teacherClient = ApiConnector.createAuthrizedClient(ITeacherClient.class, token);
-        Call<Teacher> call = teacherClient.getTeacherBasicData();
+        ITeacherClient teacherClient = ApiConnector.createAuthorizedClient(ITeacherClient.class, token);
+        Call<Teacher> call = teacherClient.getTeacherBasicData(token.getUserId());
 
         try {
             Response<Teacher> responseTeacher = call.execute();
 
             if (responseTeacher.isSuccessful()){
-                return  null;
+                return  responseTeacher.body();
             }
         } catch (Exception e){
             return  null;
@@ -46,5 +44,12 @@ public class TeacherService extends AsyncTask<String, Void, Teacher> {
     @Override
     protected Teacher doInBackground(String... strings) {
         return retrieveTeacherBasicData();
+    }
+
+    @Override
+    protected void onPostExecute(Teacher teacher){
+        super.onPostExecute(teacher);
+        // pass the result to the callback function
+        fetchDataCallback.fetchDataCallback(teacher);
     }
 }

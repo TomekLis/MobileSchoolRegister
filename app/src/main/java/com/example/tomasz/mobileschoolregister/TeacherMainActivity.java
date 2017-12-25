@@ -1,6 +1,7 @@
 package com.example.tomasz.mobileschoolregister;
 
 import android.content.Intent;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,13 +17,16 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.tomasz.mobileschoolregister.helper.Token;
+import com.example.tomasz.mobileschoolregister.interfaces.IFetchDataCallback;
 import com.example.tomasz.mobileschoolregister.model.Teacher;
 import com.example.tomasz.mobileschoolregister.service.TeacherService;
+
+import org.w3c.dom.Text;
 
 import java.util.concurrent.ExecutionException;
 
 public class TeacherMainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, IFetchDataCallback{
 
     private Token securityToken;
     private TeacherService teacherService;
@@ -58,19 +62,19 @@ public class TeacherMainActivity extends AppCompatActivity
     private void PrepareTeacherData() {
         Intent sourceIntent = getIntent();
         securityToken = (Token)sourceIntent.getSerializableExtra("token");
-        teacherService = new TeacherService(securityToken);
+        teacherService = new TeacherService(securityToken, this);
+        teacherService.execute();
+    }
 
-        Teacher teacher = null;
-        try {
-            teacher = teacherService.execute("").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public void fetchDataCallback(Object result) {
+        Teacher teacher = (Teacher)result;
+        renderTeacherData(teacher);
+    }
+
+    private void renderTeacherData(Teacher teacher) {
         TextView teacherFullNameTextView = (TextView) findViewById(R.id.teacher_nav_header_name);
         teacherFullNameTextView.setText(teacher.getFullName());
-
     }
 
     @Override

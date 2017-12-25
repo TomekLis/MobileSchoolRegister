@@ -21,14 +21,12 @@ public class ApiConnector {
     private static final String baseUrl = "http://192.168.55.108/";
     private static final ApiConnector apiConnectorInstance = new ApiConnector();
 
-    private static Retrofit.Builder builder = new Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
-
-    private static Retrofit retrofit = builder.build();
-
-
+//    private static Retrofit.Builder builder = new Retrofit.Builder()
+//            .baseUrl(baseUrl)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
+//
+//    private static Retrofit retrofit = builder.build();
 
 
 
@@ -39,10 +37,16 @@ public class ApiConnector {
     }
 
     public static <T>T createClient(final Class<T> service){
+        OkHttpClient unauthorizedHttpClient = new OkHttpClient().newBuilder().build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(unauthorizedHttpClient)
+                .build();
         return retrofit.create(service);
     }
 
-    public static <T>T createAuthrizedClient (final Class<T> service, final Token token){
+    public static <T>T createAuthorizedClient(final Class<T> service, final Token token){
 
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(new Interceptor() {
             @Override
@@ -65,5 +69,4 @@ public class ApiConnector {
 
         return authorizedRetrofit.create(service);
     }
-
 }

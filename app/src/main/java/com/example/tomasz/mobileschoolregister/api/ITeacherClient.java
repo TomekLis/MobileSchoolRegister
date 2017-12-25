@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Path;
 import retrofit2.http.Url;
 
 /**
@@ -14,6 +15,6 @@ import retrofit2.http.Url;
 
 public interface ITeacherClient {
 
-    @GET("/MobileSchoolRegisterAppApi/api/teachers/0937750b-c270-4c33-b8be-1adc38d465be")
-    Call<Teacher> getTeacherBasicData();
+    @GET("/MobileSchoolRegisterAppApi/api/teachers/{id}")
+    Call<Teacher> getTeacherBasicData(@Path("id") String teacherId);
 }
