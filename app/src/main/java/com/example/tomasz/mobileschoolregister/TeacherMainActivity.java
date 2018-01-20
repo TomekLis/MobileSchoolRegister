@@ -42,7 +42,7 @@ public class TeacherMainActivity extends AppCompatActivity
         fabCreateLesson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                checkAttendancesList();
             }
         });
 
@@ -56,6 +56,12 @@ public class TeacherMainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         PrepareTeacherData();
+    }
+
+    private void checkAttendancesList() {
+        Intent intent = new Intent(TeacherMainActivity.this, AttendanceListCheckAcivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void PrepareTeacherData() {

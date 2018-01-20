@@ -28,10 +28,7 @@
             android:name=".TeacherMainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ScrollingActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AttendanceListCheckAcivity"></activity>
     </application>
 
 </manifest>

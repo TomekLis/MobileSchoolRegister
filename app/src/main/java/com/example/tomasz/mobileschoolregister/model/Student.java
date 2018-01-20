@@ -4,7 +4,7 @@ package com.example.tomasz.mobileschoolregister.model;
  * Created by Tomasz on 23-Dec-17.
  */
 
-class Student extends User{
+public class Student extends User{
 
     private int age;
     private int studentsGroupId;

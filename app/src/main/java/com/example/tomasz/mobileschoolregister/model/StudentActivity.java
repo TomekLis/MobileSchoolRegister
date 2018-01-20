@@ -4,7 +4,7 @@ package com.example.tomasz.mobileschoolregister.model;
  * Created by Tomasz on 23-Dec-17.
  */
 
-class StudentActivity {
+public class StudentActivity {
     private int id;
     private int lessonId;
     private String studentId;

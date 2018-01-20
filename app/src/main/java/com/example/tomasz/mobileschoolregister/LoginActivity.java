@@ -32,6 +32,7 @@ import android.widget.TextView;
 
 import com.example.tomasz.mobileschoolregister.api.ApiConnector;
 import com.example.tomasz.mobileschoolregister.api.IAuthenticationClient;
+import com.example.tomasz.mobileschoolregister.helper.TokenHolder;
 import com.example.tomasz.mobileschoolregister.service.UserClient;
 import com.example.tomasz.mobileschoolregister.helper.Token;
 
@@ -365,6 +366,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
+                TokenHolder.getInstance().setToken(responseToken.body());
                 Intent intent = new Intent(LoginActivity.this, TeacherMainActivity.class);
                 intent.putExtra("token", responseToken.body());
                 startActivity(intent);

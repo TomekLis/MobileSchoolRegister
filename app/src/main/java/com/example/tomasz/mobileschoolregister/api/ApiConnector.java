@@ -18,7 +18,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiConnector {
 
-    private static final String baseUrl = "http://192.168.55.108/";
+    private static final String baseUrl = "http://10.0.2.2/";
+//    private static final String baseUrl = "http://192.168.55.108/";
     private static final ApiConnector apiConnectorInstance = new ApiConnector();
 
 //    private static Retrofit.Builder builder = new Retrofit.Builder()

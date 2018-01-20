@@ -6,7 +6,7 @@ import java.util.List;
  * Created by Tomasz on 23-Dec-17.
  */
 
-class StudentGroup {
+public class StudentGroup {
     private int id;
     private String name;
     private int grade;
