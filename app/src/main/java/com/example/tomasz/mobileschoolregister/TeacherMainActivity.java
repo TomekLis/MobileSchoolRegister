@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.example.tomasz.mobileschoolregister.helper.Token;
 import com.example.tomasz.mobileschoolregister.interfaces.IFetchDataCallback;
+import com.example.tomasz.mobileschoolregister.model.Course;
+import com.example.tomasz.mobileschoolregister.model.StudentGroup;
 import com.example.tomasz.mobileschoolregister.model.Teacher;
 import com.example.tomasz.mobileschoolregister.service.TeacherService;
 
@@ -60,8 +62,13 @@ public class TeacherMainActivity extends AppCompatActivity
 
     private void checkAttendancesList() {
         Intent intent = new Intent(TeacherMainActivity.this, AttendanceListCheckAcivity.class);
+        Course course = new Course();
+        StudentGroup studentGroup = new StudentGroup(); //TODO: take this info from activity
+        course.setId(1);
+        studentGroup.setId(1);
+        course.setStudentGroup(studentGroup);
+        intent.putExtra("course", course);
         startActivity(intent);
-        finish();
     }
 
     private void PrepareTeacherData() {

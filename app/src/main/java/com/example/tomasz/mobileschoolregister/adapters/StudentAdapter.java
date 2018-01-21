@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.tomasz.mobileschoolregister.R;
 import com.example.tomasz.mobileschoolregister.model.Student;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Tomasz on 19-Jan-18.

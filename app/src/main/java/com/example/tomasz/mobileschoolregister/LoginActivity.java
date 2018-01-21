@@ -368,7 +368,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 TokenHolder.getInstance().setToken(responseToken.body());
                 Intent intent = new Intent(LoginActivity.this, TeacherMainActivity.class);
-                intent.putExtra("token", responseToken.body());
                 startActivity(intent);
                 finish();
             } else {

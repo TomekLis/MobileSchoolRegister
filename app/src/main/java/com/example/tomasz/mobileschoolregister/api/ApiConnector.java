@@ -64,8 +64,9 @@ public class ApiConnector {
 
          Retrofit authorizedRetrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
+                 .client(okHttpClient)
                  .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
+                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                  .build();
 
         return authorizedRetrofit.create(service);

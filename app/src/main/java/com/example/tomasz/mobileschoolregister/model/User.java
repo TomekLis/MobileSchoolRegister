@@ -1,5 +1,8 @@
 package com.example.tomasz.mobileschoolregister.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Tomasz on 22-Dec-17.
  */
 
-public class User {
+public class User implements Parcelable{
 
     @SerializedName("Id")
     @Expose()
@@ -40,6 +43,36 @@ public class User {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
+
+    public User() {
+
+    }
+
+    public User(String id) {
+        this.id = id;
+    }
+
+    protected User(Parcel in) {
+        id = in.readString();
+        userName = in.readString();
+        fullName = in.readString();
+        firstName = in.readString();
+        lastName = in.readString();
+        email = in.readString();
+        phoneNumber = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public String getEmail() {
         return email;
@@ -95,5 +128,21 @@ public class User {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(userName);
+        parcel.writeString(fullName);
+        parcel.writeString(firstName);
+        parcel.writeString(lastName);
+        parcel.writeString(email);
+        parcel.writeString(phoneNumber);
     }
 }
