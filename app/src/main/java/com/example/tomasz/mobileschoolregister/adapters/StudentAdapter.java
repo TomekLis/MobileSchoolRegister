@@ -6,14 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.tomasz.mobileschoolregister.R;
 import com.example.tomasz.mobileschoolregister.model.Student;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by Tomasz on 19-Jan-18.
@@ -51,7 +49,7 @@ public class StudentAdapter extends BaseAdapter{
         View itemView = view;
         itemView = (itemView == null)? inflater.inflate(R.layout.student_attendance_list_item, null): itemView;
         TextView textViewLastName = (TextView) itemView.findViewById(R.id.AttendancesStudentLastName);
-        TextView textViewFirstName = (TextView) itemView.findViewById(R.id.AttendancesStudentFirstName);
+        TextView textViewFirstName = (TextView) itemView.findViewById(R.id.LastNameTextView);
         Student selectedStudent = students.get(i);
         textViewLastName.setText(selectedStudent.getLastName());
         textViewFirstName.setText(selectedStudent.getFirstName());

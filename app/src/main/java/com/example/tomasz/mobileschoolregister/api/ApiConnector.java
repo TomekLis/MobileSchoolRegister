@@ -1,6 +1,11 @@
 package com.example.tomasz.mobileschoolregister.api;
 
+import com.example.tomasz.mobileschoolregister.helper.CustomTeacherDeserializer;
 import com.example.tomasz.mobileschoolregister.helper.Token;
+import com.example.tomasz.mobileschoolregister.model.Course;
+import com.example.tomasz.mobileschoolregister.model.Teacher;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 
@@ -62,10 +67,15 @@ public class ApiConnector {
             }
         }).build();
 
-         Retrofit authorizedRetrofit = new Retrofit.Builder()
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Teacher.class, new CustomTeacherDeserializer())
+                .create();
+
+
+        Retrofit authorizedRetrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                  .client(okHttpClient)
-                 .addConverterFactory(GsonConverterFactory.create())
+                 .addConverterFactory(GsonConverterFactory.create(gson))
                  .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                  .build();
 

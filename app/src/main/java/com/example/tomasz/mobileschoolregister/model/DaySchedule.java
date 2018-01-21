@@ -10,7 +10,7 @@ import java.util.Date;
  * Created by Tomasz on 23-Dec-17.
  */
 
-class DaySchedule implements Parcelable {
+public class DaySchedule implements Parcelable {
     private int id;
     private Day day;
     private Date startTime;

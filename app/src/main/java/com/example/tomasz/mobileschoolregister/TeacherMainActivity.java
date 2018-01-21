@@ -14,8 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.tomasz.mobileschoolregister.adapters.UpcomingClassesAdapter;
 import com.example.tomasz.mobileschoolregister.helper.Token;
 import com.example.tomasz.mobileschoolregister.interfaces.IFetchDataCallback;
 import com.example.tomasz.mobileschoolregister.model.Course;
@@ -32,6 +34,7 @@ public class TeacherMainActivity extends AppCompatActivity
 
     private Token securityToken;
     private TeacherService teacherService;
+    private UpcomingClassesAdapter upcomingClassesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +65,7 @@ public class TeacherMainActivity extends AppCompatActivity
 
     private void checkAttendancesList() {
         Intent intent = new Intent(TeacherMainActivity.this, AttendanceListCheckAcivity.class);
-        Course course = new Course();
-        StudentGroup studentGroup = new StudentGroup(); //TODO: take this info from activity
-        course.setId(1);
-        studentGroup.setId(1);
-        course.setStudentGroup(studentGroup);
+        Course course = (Course) upcomingClassesAdapter.getItem(0);
         intent.putExtra("course", course);
         startActivity(intent);
     }
@@ -87,6 +86,9 @@ public class TeacherMainActivity extends AppCompatActivity
     private void renderTeacherData(Teacher teacher) {
         TextView teacherFullNameTextView = (TextView) findViewById(R.id.teacher_nav_header_name);
         teacherFullNameTextView.setText(teacher.getFullName());
+        upcomingClassesAdapter = new UpcomingClassesAdapter(this,teacher.getUpcomingCourses());
+        ListView upcommingClasses =  (ListView) findViewById(R.id.upcoming_courses_list);
+        upcommingClasses.setAdapter(upcomingClassesAdapter);
     }
 
     @Override
@@ -127,17 +129,15 @@ public class TeacherMainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_my_schedule) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_student_marks) {
+            Intent intent = new Intent(TeacherMainActivity.this, AttendanceListCheckAcivity.class);
+            Course course = (Course) upcomingClassesAdapter.getItem(0);
+            intent.putExtra("course", course);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_student_attendances) {
 
         }
 

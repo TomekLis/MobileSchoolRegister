@@ -21,13 +21,13 @@
         android:id="@+id/AttendancesStudentLastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/AttendancesStudentFirstName"
+        android:layout_above="@+id/LastNameTextView"
         android:layout_toEndOf="@+id/checkBoxAttendance"
         android:layout_toRightOf="@+id/checkBoxAttendance"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/AttendancesStudentFirstName"
+        android:id="@+id/LastNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/checkBoxAttendance"
