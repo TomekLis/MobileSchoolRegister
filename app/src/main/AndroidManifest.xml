@@ -29,7 +29,13 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AttendanceListCheckAcivity" />
-        <activity android:name=".StudentMarksActivity"></activity>
+        <activity android:name=".StudentMarksActivity" />
+        <activity android:name=".StudentAttendancesActivity" />
+        <activity android:name=".EditAttendanceActivity" />
+        <activity
+            android:name=".StudentBasicActivity"
+            android:label="@string/title_activity_student_basic"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -47,7 +47,7 @@ public class CreateLessonService implements ILessonService {
 
                 activity.runOnUiThread(new Runnable() {
                     public void run() {
-                        Toast toast = Toast.makeText(activity, "Lesson has been successfullyzxcz added", Toast.LENGTH_SHORT);
+                        Toast toast = Toast.makeText(activity, "Lesson has been successfully added", Toast.LENGTH_SHORT);
                         toast.show();
                     }
                 });

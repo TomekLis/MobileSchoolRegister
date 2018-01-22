@@ -1,13 +1,19 @@
 package com.example.tomasz.mobileschoolregister.api;
 
+import com.example.tomasz.mobileschoolregister.helper.CustomStudentWithActivitiesDeserlializer;
 import com.example.tomasz.mobileschoolregister.helper.CustomTeacherDeserializer;
 import com.example.tomasz.mobileschoolregister.helper.Token;
 import com.example.tomasz.mobileschoolregister.model.Course;
+import com.example.tomasz.mobileschoolregister.model.Student;
 import com.example.tomasz.mobileschoolregister.model.Teacher;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
@@ -67,8 +73,12 @@ public class ApiConnector {
             }
         }).build();
 
+        Type studentListType = new TypeToken<List<Student>>() {}.getType();
+
+
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Teacher.class, new CustomTeacherDeserializer())
+                .registerTypeAdapter(studentListType, new CustomStudentWithActivitiesDeserlializer())
                 .create();
 
 

@@ -38,7 +38,6 @@ public class AttendanceListCheckAcivity extends AppCompatActivity implements IFe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance_list_check);
         populateListView();
-        Intent sourceIntent = getIntent();
         Bundle data = getIntent().getExtras();
         course = (Course) data.getParcelable("course");
 

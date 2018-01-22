@@ -3,11 +3,14 @@ package com.example.tomasz.mobileschoolregister.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Tomasz on 23-Dec-17.
  */
 
 public class Attendance extends StudentActivity implements Parcelable{
+    @SerializedName("WasPresent")
     private boolean wasPresent;
 
     public Attendance(int lessonId, String studentId, Lesson lesson, Student student, boolean wasPresent) {
@@ -19,6 +22,8 @@ public class Attendance extends StudentActivity implements Parcelable{
     }
 
     protected Attendance(Parcel in) {
+        super(in);
+//        super(in.readInt(), in.readString(), (Lesson) in.readParcelable(Lesson.class.getClassLoader()),(Student) in.readParcelable(Student.class.getClassLoader()));
         wasPresent = in.readByte() != 0;
     }
 
@@ -49,6 +54,11 @@ public class Attendance extends StudentActivity implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(getId());
+        parcel.writeInt(getLessonId());
+        parcel.writeString(getStudentId());
+        parcel.writeParcelable(getLesson(), i);
+        parcel.writeParcelable(getStudent(), i);
         parcel.writeByte((byte) (wasPresent ? 1 : 0));
     }
 }

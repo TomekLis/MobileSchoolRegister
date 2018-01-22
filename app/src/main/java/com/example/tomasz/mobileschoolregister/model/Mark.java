@@ -3,6 +3,8 @@ package com.example.tomasz.mobileschoolregister.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -10,7 +12,9 @@ import java.io.Serializable;
  */
 
 public class Mark extends StudentActivity implements Parcelable{
+    @SerializedName("MarkValue")
     private MarkValue markValue;
+    @SerializedName("Importance")
     private Importance importance;
 
     public Mark(int lessonId, String studentId, Lesson lesson, Student student) {

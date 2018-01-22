@@ -332,8 +332,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
 
             //get client
-            UserClient userClient = new UserClient("FirstTeacher", "1234Abc");
+//            UserClient userClient = new UserClient("FirstTeacher", "1234Abc");
 
+            UserClient userClient = new UserClient(mUserName, mPassword);
             IAuthenticationClient authenticationClient = ApiConnector.createClient(IAuthenticationClient.class);
 
             Call<Token> call = authenticationClient.getToken(userClient.getGrantType(), userClient.getUserName(), userClient.getPassword());
@@ -343,21 +344,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 if(responseToken.isSuccessful()){
                     return true;
+                } else{
+                    return false;
                 }
             } catch (IOException e) {
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mUserName)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
             // TODO: register the new account here.
-            return true;
         }
 
         @Override
@@ -367,8 +361,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 TokenHolder.getInstance().setToken(responseToken.body());
-                Intent intent = new Intent(LoginActivity.this, TeacherMainActivity.class);
-                startActivity(intent);
+                if (responseToken.body().getType().contains("Teacher")) {
+                    Intent intent = new Intent(LoginActivity.this, TeacherMainActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(LoginActivity.this, StudentBasicActivity.class);
+                    startActivity(intent);
+                }
+
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

@@ -35,13 +35,19 @@ public class Token implements Serializable {
     @Expose()
     private String expires;
 
-    public Token(String accessToken, String tokenType, int expiresIn, String userId, String issued, String expires) {
+
+    @SerializedName("type")
+    @Expose()
+    private String type;
+
+    public Token(String accessToken, String tokenType, int expiresIn, String userId, String issued, String expires, String type) {
         this.accessToken = accessToken;
         this.tokenType = tokenType;
         this.expiresIn = expiresIn;
         this.userId = userId;
         this.issued = issued;
         this.expires = expires;
+        this.type = type;
     }
 
     public String getAccessToken() {
@@ -91,6 +97,14 @@ public class Token implements Serializable {
     public void setExpires(String expires) {
         this.expires = expires;
     }
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 
 
 }

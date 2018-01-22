@@ -27,6 +27,7 @@ public class StudentAdapter extends BaseAdapter{
         this.students =   students;
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
     }
 
     @Override
@@ -50,9 +51,9 @@ public class StudentAdapter extends BaseAdapter{
         itemView = (itemView == null)? inflater.inflate(R.layout.student_attendance_list_item, null): itemView;
         TextView textViewLastName = (TextView) itemView.findViewById(R.id.AttendancesStudentLastName);
         TextView textViewFirstName = (TextView) itemView.findViewById(R.id.LastNameTextView);
-        Student selectedStudent = students.get(i);
-        textViewLastName.setText(selectedStudent.getLastName());
-        textViewFirstName.setText(selectedStudent.getFirstName());
-        return itemView;
+            Student selectedStudent = students.get(i);
+            textViewLastName.setText(selectedStudent.getLastName());
+            textViewFirstName.setText(selectedStudent.getFirstName());
+            return itemView;
     }
 }
